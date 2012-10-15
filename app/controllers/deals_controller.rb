@@ -3,7 +3,8 @@ class DealsController < ApplicationController
   before_filter :set_view_paths, only: :show
 
   def index
-    @deals = Deal.all
+     @deals = Deal.all
+ 
   end
 
   def show
@@ -14,15 +15,18 @@ class DealsController < ApplicationController
   end
 
   def new
-    @advertiser = Advertiser.find(params[:advertiser_id])
-    @deal = @advertiser.deals.build
+    @advertiser = Advertiser.all  #find(params[:advertiser_id])
+    @deal = Deal.new #@advertiser.deals.build
   end
 
   def create
-    @advertiser = Advertiser.find(params[:advertiser_id])
+
+    @deal = Deal.new(params[:deal])
+    @advertiser = Advertiser.find(@deal.advertiser_id)
     @deal = @advertiser.deals.build(params[:deal])
     if @deal.save
-      redirect_to edit_deal_path(@deal), notice: 'Deal was successfully created.'
+      flash[:notice] = 'Deal was successfully created.'
+      redirect_to deals_url
     else
       render action: "new"
     end
@@ -30,7 +34,8 @@ class DealsController < ApplicationController
 
   def update
     if @deal.update_attributes(params[:deal])
-      redirect_to edit_deal_path(@deal), notice: 'Deal was successfully updated.'
+      flash[:notice] = 'Deal was successfully updated.'
+      redirect_to deals_url
     else
       render action: "edit"
     end

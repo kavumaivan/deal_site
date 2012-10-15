@@ -11,6 +11,9 @@
     </div>
   <% end %>
 
+<%= label_tag 'advertizer','Advertiser Name' %>
+<%= f.select(:advertiser_id, Advertiser.all.collect {|p| [ p.name, p.id ] }) %><br/>
+
   <%= f.label :proposition %>
   <%= f.text_field :proposition %>
 

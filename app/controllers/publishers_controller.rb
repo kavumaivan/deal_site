@@ -12,7 +12,8 @@ class PublishersController < ApplicationController
     @publisher = Publisher.new(params[:publisher])
 
     if @publisher.save
-      redirect_to edit_publisher_path(@publisher), notice: 'Publisher was successfully created.'
+      flash[:notice] = 'Publisher was successfully created.'
+      redirect_to edit_publisher_path(@publisher)
     else
       render action: "new"
     end

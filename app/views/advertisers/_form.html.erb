@@ -1,5 +1,10 @@
 <%= form_for(@advertiser) do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %>
+  <% if @publisher != nil %>
+   <%=  f.hidden_field :publisher_id, :value=>@publisher.id %> 
+   <%end%>
   <%= f.submit %>
 <% end %>
+
+
