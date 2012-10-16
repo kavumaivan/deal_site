@@ -1,13 +1,23 @@
+require 'will_paginate'
+
 class DealsController < ApplicationController
   before_filter :assign_deal, only: [ :show, :edit, :update, :destroy ]
   before_filter :set_view_paths, only: :show
 
   def index
-     @deals = Deal.all
+     
+      @search = params[:search]
+  
+    if @search != nil
+        @deals = Deal.where("Proposition Like ? OR Value Like ? OR Price Like ? OR Description LIKE ? ","%#{@search}%","%#{@search}%","%#{@search}%","%#{@search}%")  #.paginate(:page => params[:page], :per_page => 10) 
+     else
+        @deals = Deal.all #paginate(:page => params[:page], :per_page => 10) 
+    end
  
   end
 
   def show
+     @theme = @deal.advertiser.publisher.theme
     respond_to do |format|
       format.html { render layout: "deals/show" }
       format.json { render json: @deal }
@@ -54,6 +64,10 @@ class DealsController < ApplicationController
   end
 
   def set_view_paths
-    prepend_view_path "app/themes/#{@deal.advertiser.publisher.theme}/views"
+    if (/^entertainment(.*)/).match(@deal.advertiser.publisher.theme)
+       prepend_view_path "app/themes/entertainment/views"
+    else
+       prepend_view_path "app/themes/#{@deal.advertiser.publisher.theme}/views"
+    end
   end
 end
