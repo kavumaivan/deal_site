@@ -12,4 +12,8 @@ DealSite::Application.routes.draw do
   end
 
   match '/' => 'publishers#index', :as => :root
+  
+  match '/deals/index' => 'deals#index'
+  
+
 end

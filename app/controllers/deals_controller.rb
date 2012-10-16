@@ -1,4 +1,6 @@
-require 'will_paginate'
+require 'will_paginate/array'
+require 'will_paginate/active_record'
+
 
 class DealsController < ApplicationController
   before_filter :assign_deal, only: [ :show, :edit, :update, :destroy ]
@@ -9,9 +11,9 @@ class DealsController < ApplicationController
       @search = params[:search]
   
     if @search != nil
-        @deals = Deal.where("Proposition Like ? OR Value Like ? OR Price Like ? OR Description LIKE ? ","%#{@search}%","%#{@search}%","%#{@search}%","%#{@search}%")  #.paginate(:page => params[:page], :per_page => 10) 
+        @deals = Deal.where("Proposition Like ? OR Value Like ? OR Price Like ? OR Description LIKE ? ","%#{@search}%","%#{@search}%","%#{@search}%","%#{@search}%").paginate(:page => params[:page], :per_page => 10) 
      else
-        @deals = Deal.all #paginate(:page => params[:page], :per_page => 10) 
+        @deals = Deal.paginate(:page => params[:page], :per_page => 10) 
     end
  
   end

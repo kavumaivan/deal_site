@@ -1,6 +1,8 @@
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
+require 'will_paginate'
+require 'will_paginate/active_record'  
 
 if defined?(Bundler)
   Bundler.require(*Rails.groups(:assets => %w(development test)))
@@ -15,3 +17,5 @@ module DealSite
     config.assets.paths << Rails.root.join("app", "themes")
   end
 end
+
+

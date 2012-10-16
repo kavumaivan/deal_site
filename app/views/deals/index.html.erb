@@ -1,9 +1,9 @@
+
 <h1>Deals</h1>
 <div>
-	<%= form_tag '/deals'%>
-	<%= label_tag "forSearch" "Search"%>
-	<%= text_field_tag "Search"%>
-	<%= submit_tag %>
+	<%= form_tag "/deals/index" %>
+	<%= text_field_tag "search"%>
+	<%= submit_tag "Search"%>
 </div>
 
 <table class="table table-striped">
@@ -38,7 +38,6 @@
   </tbody>
 </table>
 <br/>
-<%= will_paginate @deals, :class =>"pagination" %> 
-
+<%= will_paginate @deals %> 
 <br />
 <%= link_to 'New Deal', new_deal_path %>

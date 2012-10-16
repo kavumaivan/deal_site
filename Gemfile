@@ -14,6 +14,6 @@ gem 'jquery-rails', '~> 2.0.2'
 
 group :test do
   gem "factory_girl"
-  gem "factory_girl_rails"
+ gem "factory_girl_rails"
   gem "timecop"
-end
+ gem "will_paginate","~> 3.0.0" end
