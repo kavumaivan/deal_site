@@ -14,4 +14,8 @@ class Deal < ActiveRecord::Base
   def savings
     20
   end
+  
+  def self.search(value)
+    self.where("Proposition Like ? OR Value Like ? OR Price Like ? OR Description LIKE ? OR advertiser_id IN (SELECT id FROM advertisers WHERE NAME like ? OR publisher_id IN (SELECT id FROM publishers WHERE name LIKE ?)) ","%#{value}","%#{value}%","%#{value}%","%#{value}%","%#{value}%","%#{value}%")
+  end  
 end

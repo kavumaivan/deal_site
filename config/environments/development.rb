@@ -34,4 +34,13 @@ DealSite::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+  
+  config.log_level = :debug
+
+
+  # Prepend all log lines with the following tags
+   config.log_tags = [ :subdomain, :uuid ]
+
+
+
 end
